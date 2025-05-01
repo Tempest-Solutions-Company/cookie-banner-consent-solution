@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDPR Cookie Consent - Tempest Solutions</title>
+    <link rel="stylesheet" href="gdpr-cookie-consent.css">
+    <style>
+        /* Demo page styling */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #4a6cf7;
+        }
+        
+        .logo {
+            font-weight: bold;
+            color: #4a6cf7;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            color: #444;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a6cf7;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #3a5bd7;
+        }
+        
+        .button-secondary {
+            background-color: #6c757d;
+        }
+        
+        .button-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        /* Override styles for the settings popup to fix display issues */
+        .gdpr-cookie-consent__settings {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            display: none !important;
+            z-index: 999999 !important;
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+        }
+        
+        .gdpr-cookie-consent.show-settings .gdpr-cookie-consent__settings {
+            display: flex !important;
+        }
+        
+        /* Base styles for light theme */
+        .gdpr-cookie-consent__settings-content {
+            width: 90% !important;
+            max-width: 700px !important;
+            max-height: 90vh !important; 
+            background-color: white !important;
+            border-radius: 8px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow: hidden !important;
+            margin: 0 auto !important;
+        }
+        
+        .gdpr-cookie-consent__settings-header {
+            padding: 15px 20px !important;
+            background-color: #f8f9fa !important;
+            border-bottom: 1px solid #e9ecef !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-shrink: 0 !important;
+        }
+        
+        .gdpr-cookie-consent__settings-header h3 {
+            margin: 0 !important;
+            font-size: 1.25rem !important;
+        }
+        
+        .gdpr-cookie-consent__categories {
+            padding: 20px !important;
+            overflow-y: auto !important;
+            flex-grow: 1 !important;
+            max-height: calc(50vh - 120px) !important; /* Changed from 80vh to 50vh */
+        }
+        
+        .gdpr-cookie-consent__settings-footer {
+            padding: 15px 20px !important;
+            background-color: #f8f9fa !important;
+            border-top: 1px solid #e9ecef !important;
+            text-align: right !important;
+            flex-shrink: 0 !important;
+        }
+        
+        .gdpr-cookie-consent__category {
+            margin-bottom: 15px !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 6px !important;
+            overflow: hidden !important;
+        }
+        
+        .gdpr-cookie-consent__category-header {
+            padding: 12px 15px !important;
+            background-color: #f8f9fa !important;
+            cursor: pointer !important;
+        }
+        
+        .gdpr-cookie-consent__category-description {
+            padding: 15px 20px !important;
+            background-color: white !important;
+            border-top: 1px solid #e9ecef !important;
+        }
+        
+        .gdpr-cookie-consent__category.expanded .gdpr-cookie-consent__category-description {
+            display: block !important;
+        }
+        
+        /* Make sure settings buttons have enough space */
+        .gdpr-cookie-consent__settings-save {
+            margin-left: 10px !important;
+            padding: 8px 16px !important;
+        }
+        
+        /* Dark theme overrides */
+        .gdpr-cookie-consent.dark .gdpr-cookie-consent__settings-content {
+            background-color: #212529 !important;
+            color: #f8f9fa !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+        
+        .gdpr-cookie-consent.dark .gdpr-cookie-consent__settings-header {
+            background-color: #343a40 !important;
+            border-bottom-color: #495057 !important;
+            color: #f8f9fa !important;
+        }
+        
+        .gdpr-cookie-consent.dark .gdpr-cookie-consent__settings-header h3 {
+            color: #f8f9fa !important;
+        }
+        
+        .gdpr-cookie-consent.dark .gdpr-cookie-consent__category {
+            border-color: #495057 !important;
+        }
+        
+        .gdpr-cookie-consent.dark .gdpr-cookie-consent__category-header {
+            background-color: #343a40 !important;
+            color: #f8f9fa !important;
+        }
+        
+        .gdpr-cookie-consent.dark .gdpr-cookie-consent__category-description {
+            background-color: #212529 !important;
+            color: #f8f9fa !important;
+            border-top-color: #495057 !important;
+        }
+        
+        .gdpr-cookie-consent.dark .gdpr-cookie-consent__settings-footer {
+            background-color: #343a40 !important;
+            border-top-color: #495057 !important;
+        }
+
+        /* Debug panel */
+        #popup-debug {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100001;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            max-width: 320px;
+            font-size: 12px;
+            display: none;
+        }
+        
+        /* Security features section styling */
+        .security-badge {
+            background-color: #28a745;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        
+        .security-badge.inactive {
+            background-color: #6c757d;
+        }
+        
+        .security-feature {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .security-feature:last-child {
+            border-bottom: none;
+        }
+        
+        #security-details {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GDPR Cookie Consent</h1>
+        <p>A modern, fully-featured consent solution by <span class="logo">Tempest Solutions</span></p>
+    </header>
+
+    <div class="container">
+        <div>
+            <section class="section">
+                <h2>Features</h2>
+                <ul>
+                    <li>Beautiful, modern design</li>
+                    <li>Customizable appearance and behavior</li>
+                    <li>Granular cookie category consent options</li>
+                    <li>Regulatory compliance (GDPR, CCPA, UK GDPR, ePrivacy)</li>
+                    <li>Multi-language support</li>
+                    <li>Light and dark themes</li>
+                    <li>Mobile-friendly responsive design</li>
+                    <li>Accessibility-focused implementation</li>
+                    <li>Enhanced security features (2025 standards) <span class="security-badge">New!</span></li>
+                </ul>
+            </section>
+            
+            <section class="section">
+                <h2>Try It Out</h2>
+                <p>You can test different aspects of the cookie consent solution using these buttons:</p>
+                <div>
+                    <button class="button" id="show-banner">Show Cookie Banner</button>
+                    <button class="button" id="show-settings">Open Settings Panel</button>
+                </div>
+                <div style="margin-top: 15px;">
+                    <button class="button button-secondary" id="reset-consent">Reset Consent</button>
+                    <button class="button button-secondary" id="toggle-theme">Toggle Theme</button>
+                    <button class="button button-secondary" id="toggle-debug">Debug Popup</button>
+                </div>
+            </section>
+            
+            <!-- New section for security features -->
+            <section class="section">
+                <h2>Security Features <span class="security-badge">2025</span></h2>
+                <p>This solution includes advanced security features with graceful fallback:</p>
+                <div id="security-details">
+                    <div class="security-feature">
+                        <span>Storage Encryption</span>
+                        <span id="security-encryption" class="security-badge inactive">Checking...</span>
+                    </div>
+                    <div class="security-feature">
+                        <span>Global Privacy Control</span>
+                        <span id="security-gpc" class="security-badge inactive">Checking...</span>
+                    </div>
+                    <div class="security-feature">
+                        <span>Consent Verification</span>
+                        <span id="security-verification" class="security-badge inactive">Checking...</span>
+                    </div>
+                    <div class="security-feature">
+                        <span>Fraud Prevention</span>
+                        <span id="security-fraud" class="security-badge inactive">Checking...</span>
+                    </div>
+                    <div class="security-feature">
+                        <span>Secure Cookie Flags</span>
+                        <span id="security-cookies" class="security-badge inactive">Checking...</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <div>
+            <section class="section">
+                <h2>Getting Started</h2>
+                <p>Include the library and initialize with your preferred options:</p>
+                <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+&lt;link rel="stylesheet" href="gdpr-cookie-consent.css"&gt;
+&lt;script src="gdpr-cookie-consent.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  const gdprConsent = new GDPRCookieConsent({
+    regulatory: 'auto',  // 'gdpr', 'ccpa', or 'auto'
+    theme: 'light',      // 'light' or 'dark'
+    position: 'bottom',  // 'bottom' or 'bottom-right'
+    cookieCategories: [
+      { id: 'necessary', name: 'Necessary', 
+        required: true },
+      { id: 'analytics', name: 'Analytics', 
+        required: false }
+    ],
+    securityOptions: {
+      cookieSecure: true,
+      storageEncryption: true,
+      consentVerification: 'strong'
+    }
+  });
+&lt;/script&gt;</pre>
+            </section>
+            
+            <section class="section">
+                <h2>Regulatory Support</h2>
+                <p>This solution helps you comply with:</p>
+                <ul>
+                    <li><strong>GDPR</strong> - European Union's General Data Protection Regulation</li>
+                    <li><strong>ePrivacy Directive</strong> - EU's Cookie Law</li>
+                    <li><strong>UK GDPR</strong> - United Kingdom's data protection framework</li>
+                    <li><strong>CCPA</strong> - California Consumer Privacy Act</li>
+                </ul>
+                <p><small>Note: Proper legal documentation and implementation are still necessary.</small></p>
+            </section>
+            
+            <section class="section">
+                <h2>Security Implementation</h2>
+                <p>All security features include graceful fallback when browser support is limited:</p>
+                <ul>
+                    <li>Falls back to standard storage if Web Crypto API isn't supported</li>
+                    <li>Degrades verification level when advanced features aren't available</li>
+                    <li>Maintains basic security even without advanced browser features</li>
+                    <li>Respect for privacy signals with minimal fingerprinting</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Debug panel -->
+    <div id="popup-debug">
+        <h4 style="margin-top: 0">Popup Debug Info</h4>
+        <div id="debug-info"></div>
+    </div>
+    
+    <footer>
+        <p>&copy; 1997-2025 Tempest Solutions | <a href="#license">MIT License</a></p>
+    </footer>
+
+    <script src="gdpr-cookie-consent.js"></script>
+    <script>
+        // Initialize the cookie consent solution
+        let currentTheme = 'light';
+        const gdprConsent = new GDPRCookieConsent({
+            theme: currentTheme,
+            position: 'bottom',
+            animation: 'slide',
+            regulatory: 'gdpr',
+            cookieCategories: [
+                { id: 'necessary', name: 'Necessary', description: 'These cookies are essential for the website to function properly and cannot be disabled.', required: true },
+                { id: 'functional', name: 'Functional', description: 'These cookies enable enhanced functionality and personalization, such as remembering your preferences and settings.', required: false },
+                { id: 'analytics', name: 'Analytics', description: 'These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.', required: false },
+                { id: 'marketing', name: 'Marketing', description: 'These cookies are used to track visitors across websites to display relevant advertisements and marketing campaigns.', required: false },
+                { id: 'social_media', name: 'Social Media', description: 'These cookies enable social media functionalities and sharing options on our website.', required: false }
+            ],
+            onAccept: function(preferences) {
+                console.log('All cookies accepted:', preferences);
+                updateSecurityStatus();
+            },
+            onCustomize: function(preferences) {
+                console.log('Custom preferences saved:', preferences);
+                updateSecurityStatus();
+            },
+            // Add advanced security configuration
+            securityOptions: {
+                cookieSecure: true,             // Ensure cookies use Secure flag when on HTTPS
+                respectGPC: true,               // Honor Global Privacy Control signals
+                storageEncryption: true,        // Encrypt locally stored consent data
+                consentVerification: 'strong',  // Implement stronger consent verification
+                fraudPrevention: true,          // Add consent fraud prevention measures
+                autoDeleteInactive: 180         // Auto-delete inactive consent records (days)
+            }
+        });
+
+        // Add event listeners for demo buttons
+        document.getElementById('show-banner').addEventListener('click', function() {
+            gdprConsent.showBanner();
+        });
+
+        document.getElementById('show-settings').addEventListener('click', function() {
+            gdprConsent.showBanner();
+            
+            // Wrap everything in a single timeout to avoid issues
+            setTimeout(() => {
+                // Add show-settings class
+                const consentBanner = document.querySelector('.gdpr-cookie-consent');
+                consentBanner.classList.add('show-settings');
+                
+                // Expand all categories
+                const categories = document.querySelectorAll('.gdpr-cookie-consent__category');
+                categories.forEach(cat => cat.classList.add('expanded'));
+                
+                // Update debug
+                updateDebugInfo();
+                
+                // Fix any z-index issues
+                const settings = document.querySelector('.gdpr-cookie-consent__settings');
+                if (settings) {
+                    settings.style.zIndex = '999999';
+                }
+            }, 300);
+        });
+
+        document.getElementById('reset-consent').addEventListener('click', function() {
+            gdprConsent.resetConsent();
+            alert('Consent preferences have been reset. The banner will appear again.');
+        });
+
+        document.getElementById('toggle-theme').addEventListener('click', function() {
+            // Toggle theme
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            // Apply new theme
+            const banner = document.querySelector('.gdpr-cookie-consent');
+            if (banner) {
+                banner.className = banner.className.replace(/light|dark/, currentTheme);
+            } else {
+                alert('Banner not active. Show the banner first, then toggle theme.');
+            }
+        });
+        
+        // Toggle debug panel
+        document.getElementById('toggle-debug').addEventListener('click', function() {
+            const debugPanel = document.getElementById('popup-debug');
+            debugPanel.style.display = debugPanel.style.display === 'none' || !debugPanel.style.display ? 'block' : 'none';
+            updateDebugInfo();
+        });
+        
+        // Update debug information
+        function updateDebugInfo() {
+            const settings = document.querySelector('.gdpr-cookie-consent__settings');
+            const content = document.querySelector('.gdpr-cookie-consent__settings-content');
+            const categories = document.querySelectorAll('.gdpr-cookie-consent__category');
+            
+            if (!settings || !content) {
+                document.getElementById('debug-info').innerHTML = 'Settings popup not found in DOM';
+                return;
+            }
+            
+            let info = `
+                <p>Settings visible: ${window.getComputedStyle(settings).display !== 'none'}</p>
+                <p>Settings dimensions: ${settings.offsetWidth}x${settings.offsetHeight}px</p>
+                <p>Content dimensions: ${content.offsetWidth}x${content.offsetHeight}px</p>
+                <p>Categories: ${categories.length}</p>
+                <p>Window size: ${window.innerWidth}x${window.innerHeight}px</p>
+            `;
+            
+            document.getElementById('debug-info').innerHTML = info;
+        }
+        
+        // Ensure categories expand when customize button is clicked
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('gdpr-cookie-consent__customize-btn')) {
+                console.log('Customize button clicked');
+                
+                setTimeout(() => {
+                    document.querySelectorAll('.gdpr-cookie-consent__category').forEach(category => {
+                        category.classList.add('expanded');
+                    });
+                    
+                    updateDebugInfo();
+                }, 500);
+            }
+        });
+        
+        // Update security feature status display
+        function updateSecurityStatus() {
+            // Check Web Crypto API
+            const encryptionBadge = document.getElementById('security-encryption');
+            encryptionBadge.textContent = window.crypto && window.crypto.subtle ? 'Active' : 'Fallback';
+            encryptionBadge.className = window.crypto && window.crypto.subtle ? 'security-badge' : 'security-badge inactive';
+            
+            // Check GPC
+            const gpcBadge = document.getElementById('security-gpc');
+            const gpcSupported = 'globalPrivacyControl' in navigator;
+            gpcBadge.textContent = gpcSupported ? 'Supported' : 'Not Detected';
+            gpcBadge.className = gpcSupported ? 'security-badge' : 'security-badge inactive';
+            
+            // Check verification status
+            const verificationBadge = document.getElementById('security-verification');
+            verificationBadge.textContent = gdprConsent.security?.consentVerification || 'Basic';
+            verificationBadge.className = 'security-badge';
+            
+            // Check fraud prevention
+            const fraudBadge = document.getElementById('security-fraud');
+            fraudBadge.textContent = gdprConsent.security?.fraudPrevention ? 'Active' : 'Inactive';
+            fraudBadge.className = gdprConsent.security?.fraudPrevention ? 'security-badge' : 'security-badge inactive';
+            
+            // Check secure cookies
+            const cookieBadge = document.getElementById('security-cookies');
+            const isSecure = window.location.protocol === 'https:' && gdprConsent.security?.cookieSecure;
+            cookieBadge.textContent = isSecure ? 'Secure' : 'Standard';
+            cookieBadge.className = isSecure ? 'security-badge' : 'security-badge inactive';
+        }
+        
+        // Call initially
+        setTimeout(updateSecurityStatus, 500);
+    </script>
+</body>
+</html>

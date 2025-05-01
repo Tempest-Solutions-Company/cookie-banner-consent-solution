@@ -1,0 +1,358 @@
+/**
+ * GDPR Cookie Consent - Modern & Beautiful Styling
+ */
+
+:root {
+  --gdpr-primary-color: #4a6cf7;
+  --gdpr-secondary-color: #f8f9fa;
+  --gdpr-text-color: #212529;
+  --gdpr-light-text: #6c757d;
+  --gdpr-border-color: #e9ecef;
+  --gdpr-success-color: #28a745;
+  --gdpr-radius: 12px;
+  --gdpr-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --gdpr-transition: all 0.3s ease;
+}
+
+.gdpr-cookie-consent {
+  position: fixed;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gdpr-text-color);
+  transition: var(--gdpr-transition);
+}
+
+/* Positions */
+.gdpr-cookie-consent.bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(0);
+}
+
+.gdpr-cookie-consent.bottom.hidden {
+  transform: translateY(100%);
+}
+
+.gdpr-cookie-consent.bottom-right {
+  right: 30px;
+  bottom: 30px;
+  max-width: 400px;
+}
+
+.gdpr-cookie-consent.bottom-right.hidden {
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+/* Container */
+.gdpr-cookie-consent__container {
+  background-color: white;
+  border-radius: var(--gdpr-radius);
+  box-shadow: var(--gdpr-shadow);
+  margin: 20px;
+  overflow: hidden;
+  transition: var(--gdpr-transition);
+  opacity: 1;
+}
+
+.gdpr-cookie-consent.hidden .gdpr-cookie-consent__container {
+  opacity: 0;
+}
+
+/* Header */
+.gdpr-cookie-consent__header {
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gdpr-border-color);
+}
+
+.gdpr-cookie-consent__header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.gdpr-cookie-consent__close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gdpr-light-text);
+  transition: var(--gdpr-transition);
+}
+
+.gdpr-cookie-consent__close:hover {
+  color: var(--gdpr-text-color);
+}
+
+/* Content */
+.gdpr-cookie-consent__content {
+  padding: 20px 25px;
+}
+
+.gdpr-cookie-consent__content p {
+  margin: 0 0 15px 0;
+}
+
+.gdpr-cookie-consent__policy-link {
+  color: var(--gdpr-primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.gdpr-cookie-consent__policy-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.gdpr-cookie-consent__footer {
+  padding: 15px 25px 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+/* Buttons */
+.gdpr-cookie-consent__accept-btn,
+.gdpr-cookie-consent__customize-btn,
+.gdpr-cookie-consent__settings-save {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--gdpr-transition);
+  border: none;
+}
+
+.gdpr-cookie-consent__accept-btn {
+  background-color: var(--gdpr-primary-color);
+  color: white;
+}
+
+.gdpr-cookie-consent__accept-btn:hover {
+  background-color: darken(var(--gdpr-primary-color), 10%);
+  box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+}
+
+.gdpr-cookie-consent__customize-btn {
+  background-color: var(--gdpr-secondary-color);
+  color: var(--gdpr-text-color);
+}
+
+.gdpr-cookie-consent__customize-btn:hover {
+  background-color: darken(var(--gdpr-secondary-color), 5%);
+}
+
+/* Settings Panel */
+.gdpr-cookie-consent__settings {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: var(--gdpr-transition);
+}
+
+.gdpr-cookie-consent.show-settings .gdpr-cookie-consent__settings {
+  display: flex;
+  opacity: 1;
+}
+
+.gdpr-cookie-consent__settings-content {
+  background-color: white;
+  border-radius: var(--gdpr-radius);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+}
+
+/* Categories */
+.gdpr-cookie-consent__categories {
+  margin-top: 20px;
+}
+
+.gdpr-cookie-consent__category {
+  border: 1px solid var(--gdpr-border-color);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.gdpr-cookie-consent__category-header {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--gdpr-secondary-color);
+  cursor: pointer;
+}
+
+.gdpr-cookie-consent__category-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.gdpr-cookie-consent__category-toggle {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.gdpr-cookie-consent__category-toggle:before,
+.gdpr-cookie-consent__category-toggle:after {
+  content: '';
+  position: absolute;
+  background-color: var(--gdpr-light-text);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.gdpr-cookie-consent__category-toggle:before {
+  width: 2px;
+  height: 12px;
+  transition: var(--gdpr-transition);
+}
+
+.gdpr-cookie-consent__category-toggle:after {
+  width: 12px;
+  height: 2px;
+}
+
+.gdpr-cookie-consent__category.expanded .gdpr-cookie-consent__category-toggle:before {
+  transform: translate(-50%, -50%) rotate(90deg);
+  opacity: 0;
+}
+
+.gdpr-cookie-consent__category-description {
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: var(--gdpr-transition);
+}
+
+.gdpr-cookie-consent__category.expanded .gdpr-cookie-consent__category-description {
+  padding: 15px 20px;
+  max-height: 200px;
+}
+
+.gdpr-cookie-consent__category-required {
+  font-size: 0.85rem;
+  color: var(--gdpr-light-text);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Checkbox Styling */
+.gdpr-cookie-consent input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--gdpr-light-text);
+  border-radius: 5px;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  transition: var(--gdpr-transition);
+}
+
+.gdpr-cookie-consent input[type="checkbox"]:checked {
+  background-color: var(--gdpr-primary-color);
+  border-color: var(--gdpr-primary-color);
+}
+
+.gdpr-cookie-consent input[type="checkbox"]:checked:after {
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+.gdpr-cookie-consent input[type="checkbox"]:disabled {
+  background-color: var(--gdpr-secondary-color);
+  border-color: var(--gdpr-border-color);
+  cursor: not-allowed;
+}
+
+/* Animations */
+.gdpr-cookie-consent.slide {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.gdpr-cookie-consent.fade {
+  transition: opacity 0.5s ease;
+}
+
+.gdpr-cookie-consent.fade.hidden {
+  opacity: 0;
+}
+
+/* Themes */
+.gdpr-cookie-consent.dark .gdpr-cookie-consent__container,
+.gdpr-cookie-consent.dark .gdpr-cookie-consent__settings-content {
+  background-color: #212529;
+  color: #f8f9fa;
+}
+
+.gdpr-cookie-consent.dark .gdpr-cookie-consent__header {
+  border-bottom-color: #343a40;
+}
+
+.gdpr-cookie-consent.dark .gdpr-cookie-consent__close {
+  color: #adb5bd;
+}
+
+.gdpr-cookie-consent.dark .gdpr-cookie-consent__close:hover {
+  color: #f8f9fa;
+}
+
+.gdpr-cookie-consent.dark .gdpr-cookie-consent__category {
+  border-color: #343a40;
+}
+
+.gdpr-cookie-consent.dark .gdpr-cookie-consent__category-header {
+  background-color: #343a40;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gdpr-cookie-consent__footer {
+    flex-direction: column;
+  }
+  
+  .gdpr-cookie-consent__accept-btn,
+  .gdpr-cookie-consent__customize-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .gdpr-cookie-consent.bottom-right {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    max-width: none;
+  }
+}
