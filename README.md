@@ -23,7 +23,7 @@ A beautiful, modern, and fully customizable consent solution for websites, suppo
 1. Download the three essential files:
    - `gdpr-cookie-consent.js`
    - `gdpr-cookie-consent.css`
-   - `demo.html` (for reference)
+   - `index.html` (for reference)
 
 2. Include the CSS in the `<head>` of your HTML:
    ```html
@@ -394,7 +394,7 @@ This solution is designed to help websites comply with major privacy regulations
 - ✅ Provides the right to opt-out of the "sale" of personal information
 - ✅ Includes a clear "Do Not Sell My Personal Information" option
 - ✅ Records user preferences with timestamps
-- ⚠️ Note: CCPA compliance requires additional implementation of data request handling systems beyond this cookie consent tool
+- ⚠️ Note: CCPA compliance requires additional implementation of data request handling systems beyond this cookie consent tool, including systems for processing access and deletion requests
 
 ### 2025 Security Standards
 - ✅ **Crypto Storage**: Uses Web Crypto API for secure storage of consent
@@ -406,12 +406,13 @@ This solution is designed to help websites comply with major privacy regulations
 - ✅ **Graceful Fallback**: Maintains security when advanced features aren't available
 
 ### Important Compliance Note
-While this tool helps you implement the technical aspects of cookie compliance, proper configuration and legal documentation are essential for full compliance:
+While this tool helps you implement the technical aspects of cookie compliance and includes advanced security features, proper configuration and legal documentation are essential for full compliance:
 
 1. Work with legal experts to ensure your privacy policy accurately reflects your data practices
 2. Customize cookie descriptions to match your specific usage
 3. Implement appropriate data processing agreements with third-party services
 4. Regularly audit your cookie usage to ensure the consent tool remains accurate
+5. For CCPA, implement additional systems to handle consumer data requests (access, deletion, etc.)
 
 This tool is part of a compliance strategy but does not guarantee complete legal compliance on its own.
 
