@@ -23,7 +23,7 @@ A beautiful, modern, and fully customizable consent solution for websites, suppo
 1. Download the three essential files:
    - `gdpr-cookie-consent.js`
    - `gdpr-cookie-consent.css`
-   - `index.html` (for reference)
+   - `demo.html` (for reference)
 
 2. Include the CSS in the `<head>` of your HTML:
    ```html
